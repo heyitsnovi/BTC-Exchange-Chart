@@ -2,10 +2,7 @@
 
 $data = json_decode(file_get_contents('http://api.fixer.io/latest?base=USD'),true);
 
-
-
 $today = date('Y-m-d');
-//$file = fopen("http://api.coindesk.com/v1/bpi/historical/close.csv?start=2010-01-01&end=".$today."&index=USD","r");
 
 $file= fopen('php://temp', 'w+');
 
@@ -17,7 +14,6 @@ curl_exec($curl);
 curl_close($curl);
 
 rewind($file);
-
 
 $exchange_rates = array();
 $dates = array();
@@ -35,7 +31,7 @@ endif;
 
 fclose($file);
 
-$current_btc_price =  end($exchange_rates);
+$current_btc_price = end($exchange_rates);
 
 //Bitcoin to Philippine Peso conversion
 $btc_to_peso = ($data['rates']['PHP'] *  $current_btc_price );
@@ -79,15 +75,17 @@ $btc_to_peso = ($data['rates']['PHP'] *  $current_btc_price );
             window.myLine = new Chart(ctx, config);
         };
     </script>
-  <div style="text-align: center; font-weight: bold; font-size: 20px;">
-  	1 Bitcoin = PHP <?php echo number_format($btc_to_peso,2); ?> 
-  </div>
-  <div style="width:100%;">
-        <canvas id="canvas"></canvas>
-  </div>
+    
+    <div style="text-align: center; font-weight: bold; font-size: 20px;">
+    	1 Bitcoin = PHP <?php echo number_format($btc_to_peso,2); ?> 
+    </div>
 
-  <div style="text-align: center;">
-  	<strong>&copy; Created by <a href="/">Novi</a></strong>
-  </div>
-</body>
+    <div style="width:100%;">
+          <canvas id="canvas"></canvas>
+    </div>
+
+    <div style="text-align: center;">
+    	<strong>&copy; Created by <a href="/">Novi</a></strong>
+    </div>
+  </body>
 </html>
